@@ -1,6 +1,5 @@
 package com.product.api.controller;
 
-import com.product.api.dto.ApiResponse;
 import com.product.api.dto.DtoCategoryIn;
 import com.product.api.entity.Category;
 import com.product.api.service.SvcCategory;
@@ -33,26 +32,26 @@ public class CtrlCategory {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse> create(@Valid @RequestBody DtoCategoryIn in) {
+    public ResponseEntity<String> create(@Valid @RequestBody DtoCategoryIn in) {
         svcCategory.create(in);
-        return ResponseEntity.ok(new ApiResponse("La categoría ha sido registrada"));
+        return ResponseEntity.ok("La categoría ha sido registrada");
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse> update(@PathVariable Integer id, @Valid @RequestBody DtoCategoryIn in) {
+    public ResponseEntity<String> update(@PathVariable Integer id, @Valid @RequestBody DtoCategoryIn in) {
         svcCategory.update(in, id);
-        return ResponseEntity.ok(new ApiResponse("La categoría ha sido actualizada"));
+        return ResponseEntity.ok("La categoría ha sido actualizada");
     }
 
     @PatchMapping("/{id}/enable")
-    public ResponseEntity<ApiResponse> enable(@PathVariable Integer id) {
+    public ResponseEntity<String> enable(@PathVariable Integer id) {
         svcCategory.enable(id);
-        return ResponseEntity.ok(new ApiResponse("La categoría ha sido activada"));
+        return ResponseEntity.ok("La categoría ha sido activada");
     }
 
     @PatchMapping("/{id}/disable")
-    public ResponseEntity<ApiResponse> disable(@PathVariable Integer id) {
+    public ResponseEntity<String> disable(@PathVariable Integer id) {
         svcCategory.disable(id);
-        return ResponseEntity.ok(new ApiResponse("La categoría ha sido desactivada"));
+        return ResponseEntity.ok("La categoría ha sido desactivada");
     }
 }
