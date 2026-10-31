@@ -27,6 +27,17 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(response, response.getError());
     }
+    @ExceptionHandler(DBAccessException.class)
+    protected ResponseEntity<ExceptionResponse> handleDBAccessException(DBAccessException exception, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse();
+        response.setTimestamp(LocalDateTime.now());
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        response.setError(HttpStatus.INTERNAL_SERVER_ERROR);
+        response.setMessage("Error al consultar la base de datos");
+        response.setPath(((ServletWebRequest) request).getRequest().getRequestURI().toString());
+
+        return new ResponseEntity<>(response, response.getError());
+    }
 
         @Override
         protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
